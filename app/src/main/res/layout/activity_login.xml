@@ -60,6 +60,16 @@
             android:background="#216c2a"
             android:text="Ingresar"
             android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"/>
+            android:layout_marginLeft="30dp"
+            android:id="@+id/btn_ingresar"/>
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:text="Registrarse"
+            android:layout_below="@id/btn_ingresar"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:layout_centerHorizontal="true"/>
     </RelativeLayout>
 </RelativeLayout>
