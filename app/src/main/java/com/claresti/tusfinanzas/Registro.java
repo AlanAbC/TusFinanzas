@@ -12,8 +12,7 @@ public class Registro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
-        //hola
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_registro);
     }
 
 }

@@ -26,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_below="@id/logo"
             android:layout_marginTop="25dp"
+            android:textColorHint="#FFFFFF"
             android:layout_height="wrap_content">
 
             <EditText
@@ -33,6 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Usuario"
+                android:textColor="#fff"
                 android:textColorHint="#ffffff"
                 android:textSize="20dp"/>
 
@@ -41,6 +43,7 @@
             android:id="@+id/input_layout_password"
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
+            android:textColorHint="#fff"
             android:layout_below="@id/input_layout_user"
             android:layout_height="wrap_content">
 
@@ -49,6 +52,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Contraseña"
+                android:textColor="#fff"
+                android:inputType="textPassword"
                 android:textColorHint="#ffffff"
                 android:textSize="20dp"/>
 
@@ -73,6 +78,7 @@
             android:gravity="center_horizontal"
             android:layout_marginTop="25dp"
             android:id="@+id/btn_registro"
+            android:textColor="#fff"
             android:layout_centerHorizontal="true"/>
     </RelativeLayout>
 </RelativeLayout>
