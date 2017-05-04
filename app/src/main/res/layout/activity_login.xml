@@ -64,12 +64,13 @@
             android:id="@+id/btn_ingresar"/>
 
         <TextView
-            android:layout_width="80dp"
+            android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:text="Registrarse"
+            android:text="¿Eres Nuevo? Registrate Aqui"
             android:layout_below="@id/btn_ingresar"
             android:gravity="center_horizontal"
             android:layout_marginTop="25dp"
+            android:id="@+id/btn_registro"
             android:layout_centerHorizontal="true"/>
     </RelativeLayout>
 </RelativeLayout>
