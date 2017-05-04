@@ -27,12 +27,15 @@
             android:layout_width="match_parent"
             android:layout_below="@id/logo"
             android:layout_marginTop="10dp"
+            android:textColorHint="#FFFFFF"
             android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/input_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textColorHint="#ffffff"
                 android:hint="Nombre"
                 android:textSize="20dp"/>
 
@@ -43,12 +46,15 @@
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
             android:layout_below="@id/input_layout_name"
+            android:textColorHint="#FFFFFF"
             android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/input_lastName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textColorHint="#ffffff"
                 android:hint="Apellidos"
                 android:textSize="20dp"/>
 
@@ -59,12 +65,15 @@
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
             android:layout_below="@id/input_layout_lastName"
+            android:textColorHint="#FFFFFF"
             android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/input_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textColorHint="#ffffff"
                 android:hint="E-mail"
                 android:textSize="20dp"/>
 
@@ -74,35 +83,44 @@
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
             android:layout_below="@id/input_layout_email"
+            android:textColorHint="#FFFFFF"
             android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/input_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textColorHint="#ffffff"
+                android:inputType="textPassword"
                 android:hint="Contraseña"
                 android:textSize="20dp"/>
 
         </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout_currency"
-            android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/input_layout_password"
-            android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/input_currency"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Tipo de moneda"
-                android:textSize="20dp"/>
+                android:layout_marginTop="10dp"
+                android:text="Selecciona el tipo de moneda"
+                android:textColor="#fff"
+                android:textSize="20sp"
+                android:layout_below="@id/input_layout_password"
+                android:id="@+id/tv_currency"/>
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:id="@+id/sp_currency"
+            android:layout_below="@id/tv_currency">
 
-        </android.support.design.widget.TextInputLayout>
+
+
+        </Spinner>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/input_layout_currency"
+            android:layout_below="@id/sp_currency"
             android:layout_marginTop="15dp"
             android:textColor="#ffffff"
             android:background="#216c2a"
