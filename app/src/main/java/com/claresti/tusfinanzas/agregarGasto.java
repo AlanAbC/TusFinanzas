@@ -32,6 +32,10 @@ public class agregarGasto extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_agregar_gasto);
+        //Menu, Inicia las variables del menu y llama la funcion encargada de su manipulacion
+        drawerLayout = (DrawerLayout) findViewById(R.id.dLayout);
+        nav = (NavigationView)findViewById(R.id.navigation);
+        menu = nav.getMenu();
         menuNav();
     }
     /**
