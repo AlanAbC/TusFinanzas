@@ -19,14 +19,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class agregarGasto extends AppCompatActivity {
+
+    //Declaracion de variables layout
+    private EditText input_monto;
+    private EditText input_concepto;
+    private Spinner spin_categoria;
+    private DatePicker date_fecha;
+    private ImageView btn_mas;
+    private ImageView btn_menos;
+    private Button btn_registrar;
 
     //Menu, Declaracion de variables
     private DrawerLayout drawerLayout;
@@ -40,6 +53,15 @@ public class agregarGasto extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_agregar_gasto);
+
+        //Asignacion variables layout
+        input_monto = (EditText)findViewById(R.id.input_monto);
+        input_concepto = (EditText)findViewById(R.id.input_concepto);
+        spin_categoria = (Spinner)findViewById(R.id.spin_categoria);
+        date_fecha = (DatePicker)findViewById(R.id.date_fecha);
+        btn_mas = (ImageView)findViewById(R.id.img_mas);
+        btn_menos = (ImageView)findViewById(R.id.img_menos);
+        btn_registrar = (Button)findViewById(R.id.btn_registrar);
 
         //Menu, Inicia las variables del menu y llama la funcion encargada de su manipulacion
         drawerLayout = (DrawerLayout) findViewById(R.id.dLayout);

@@ -7,4 +7,5 @@
     android:textColor="#fff"
     android:padding="15dp"
     android:background="#4E9455"
-    android:textSize="19sp"/>
+    android:textSize="19sp"
+    android:id="@+id/txt_moneda"/>
