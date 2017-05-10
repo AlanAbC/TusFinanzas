@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,12 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class agregarGasto extends AppCompatActivity {
+
     //Menu, Declaracion de variables
     private DrawerLayout drawerLayout;
     final List<MenuItem> items = new ArrayList<>();
     private Menu menu;
     private ImageView btnMenu;
     private NavigationView nav;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +43,7 @@ public class agregarGasto extends AppCompatActivity {
         menu = nav.getMenu();
         menuNav();
     }
+
     /**
      * Funcion que da funcionalidad al menu
      */
@@ -69,6 +75,23 @@ public class agregarGasto extends AppCompatActivity {
                 drawerLayout.closeDrawer(nav);
                 item.setChecked(false);
                 return false;
+            }
+        });
+        //Bloque de codigo que da funcionalidad al boton de editar del header del menu
+        View headerview = nav.getHeaderView(0);
+
+        Drawable imgOriginal = getResources().getDrawable(R.drawable.user);
+        Bitmap bitOriginal = ((BitmapDrawable) imgOriginal).getBitmap();
+        RoundedBitmapDrawable rounderDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitOriginal);
+        rounderDrawable.setCornerRadius(bitOriginal.getHeight());
+        ImageView imgUsuario = (ImageView)headerview.findViewById(R.id.img_Usuario);
+        imgUsuario.setImageDrawable(rounderDrawable);
+
+        btnMenu = (ImageView)findViewById(R.id.Btnmenu);
+        btnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(nav);
             }
         });
     }
