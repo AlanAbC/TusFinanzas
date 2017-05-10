@@ -19,7 +19,7 @@
         android:background="@drawable/img_redonda"
         android:id="@+id/img_Usuario"
         android:src="@drawable/user"
-        android:padding="13dp"/>
+        android:padding="0dp"/>
 
     <TextView
         android:layout_width="match_parent"

@@ -80,11 +80,11 @@ public class agregarGasto extends AppCompatActivity {
         //Bloque de codigo que da funcionalidad al boton de editar del header del menu
         View headerview = nav.getHeaderView(0);
 
-        Drawable imgOriginal = getResources().getDrawable(R.drawable.user);
+        ImageView imgUsuario = (ImageView)headerview.findViewById(R.id.img_Usuario);
+        Drawable imgOriginal = imgUsuario.getDrawable(); //getResources().getDrawable(R.drawable.fondo3);
         Bitmap bitOriginal = ((BitmapDrawable) imgOriginal).getBitmap();
         RoundedBitmapDrawable rounderDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitOriginal);
         rounderDrawable.setCornerRadius(bitOriginal.getHeight());
-        ImageView imgUsuario = (ImageView)headerview.findViewById(R.id.img_Usuario);
         imgUsuario.setImageDrawable(rounderDrawable);
 
         btnMenu = (ImageView)findViewById(R.id.Btnmenu);
