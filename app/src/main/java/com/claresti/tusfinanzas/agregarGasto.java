@@ -1,5 +1,6 @@
 package com.claresti.tusfinanzas;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,6 +17,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -37,11 +40,15 @@ public class agregarGasto extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_agregar_gasto);
+
         //Menu, Inicia las variables del menu y llama la funcion encargada de su manipulacion
         drawerLayout = (DrawerLayout) findViewById(R.id.dLayout);
         nav = (NavigationView)findViewById(R.id.navigation);
         menu = nav.getMenu();
         menuNav();
+
+        //Ocultar teclado al iniciar la activity
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     /**
@@ -77,9 +84,11 @@ public class agregarGasto extends AppCompatActivity {
                 return false;
             }
         });
-        //Bloque de codigo que da funcionalidad al boton de editar del header del menu
+
+        //Asignacion del header menu en una bariable
         View headerview = nav.getHeaderView(0);
 
+        //Toma la imagen de ususario, la redondea y la coloca nuevamente
         ImageView imgUsuario = (ImageView)headerview.findViewById(R.id.img_Usuario);
         Drawable imgOriginal = imgUsuario.getDrawable(); //getResources().getDrawable(R.drawable.fondo3);
         Bitmap bitOriginal = ((BitmapDrawable) imgOriginal).getBitmap();
@@ -87,6 +96,7 @@ public class agregarGasto extends AppCompatActivity {
         rounderDrawable.setCornerRadius(bitOriginal.getHeight());
         imgUsuario.setImageDrawable(rounderDrawable);
 
+        //Funcionalidad del boton de menu
         btnMenu = (ImageView)findViewById(R.id.Btnmenu);
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
