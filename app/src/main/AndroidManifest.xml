@@ -19,7 +19,9 @@
         <activity android:name=".Registro" />
         <activity android:name=".agregar_categoria" />
         <activity android:name=".presupuestos" />
-        <activity android:name=".acerca"></activity>
+        <activity android:name=".acerca" />
+        <activity android:name=".agregarGasto" />
+        <activity android:name=".registros"></activity>
     </application>
 
 </manifest>

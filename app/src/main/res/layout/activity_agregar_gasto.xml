@@ -58,7 +58,7 @@
                 android:id="@+id/img_mas"
                 android:src="@drawable/mas"
                 android:padding="15dp"
-                android:layout_marginLeft="65dp"
+                android:layout_marginLeft="50dp"
                 android:layout_marginTop="45dp"
                 />
             <ImageView
@@ -89,17 +89,16 @@
                 android:layout_marginRight="50dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="15dp"
-                android:textColorHint="#FFFFFF"
+                android:hint="$Monto"
+                android:textColorHint="#949494"
                 android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/input_monto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="U$Monto"
-                    android:textColor="#fff"
-                    android:textColorHint="#ffffff"
-                    android:textSize="20dp"/>
+                    android:textColor="#949494"
+                    android:textSize="15sp"/>
 
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
@@ -109,17 +108,16 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="50dp"
                 android:layout_marginLeft="50dp"
-                android:textColorHint="#FFFFFF"
+                android:hint="Concepto"
+                android:textColorHint="#949494"
                 android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/input_concepto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Concepto"
-                    android:textColor="#fff"
-                    android:textColorHint="#ffffff"
-                    android:textSize="20dp"/>
+                    android:textColor="#949494"
+                    android:textSize="15sp"/>
 
             </android.support.design.widget.TextInputLayout>
             <Spinner
