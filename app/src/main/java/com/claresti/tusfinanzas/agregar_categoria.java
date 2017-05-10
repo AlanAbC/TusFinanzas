@@ -15,12 +15,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class agregar_categoria extends AppCompatActivity {
+
+    //Declaracion variables layout
+    private EditText input_nombreCat;
+    private EditText input_descripcionCat;
+    private Button btn_registrar;
 
     //Menu, Declaracion de variables
     private DrawerLayout drawerLayout;
@@ -34,6 +41,11 @@ public class agregar_categoria extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_agregar_categoria);
+
+        //Asignacion variables de layout
+        input_nombreCat = (EditText)findViewById(R.id.input_nombreCat);
+        input_descripcionCat = (EditText)findViewById(R.id.input_descripcionCat);
+        btn_registrar = (Button)findViewById(R.id.btn_registrar);
 
         //Menu, Inicia las variables del menu y llama la funcion encargada de su manipulacion
         drawerLayout = (DrawerLayout) findViewById(R.id.dLayout);

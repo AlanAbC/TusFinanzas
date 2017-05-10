@@ -15,11 +15,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class presupuestos extends AppCompatActivity {
+
+    //Declaracion variables layout
+    private ListView lis_categoria;
 
     //Menu, Declaracion de variables
     private DrawerLayout drawerLayout;
@@ -33,6 +37,9 @@ public class presupuestos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_presupuestos);
+
+        //Declaracion de variables layout
+        lis_categoria = (ListView)findViewById(R.id.lis_categoria);
 
         //Menu, Inicia las variables del menu y llama la funcion encargada de su manipulacion
         drawerLayout = (DrawerLayout) findViewById(R.id.dLayout);

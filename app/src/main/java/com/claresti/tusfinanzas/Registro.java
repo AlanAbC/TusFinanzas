@@ -10,10 +10,6 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by mansi on 04/05/2017.
- */
-
 public class Registro extends AppCompatActivity {
 
     //Declaracion variables layout
