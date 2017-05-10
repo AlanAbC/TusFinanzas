@@ -3,6 +3,7 @@ package com.claresti.tusfinanzas;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.lang.reflect.Array;
@@ -14,8 +15,15 @@ import java.util.List;
  */
 
 public class Registro extends AppCompatActivity {
-    Spinner spin_registro;
-    List<String> monedas = new ArrayList<String>();
+
+    //Declaracion variables layout
+    private EditText nombre;
+    private EditText apellidos;
+    private EditText mail;
+    private EditText password1;
+    private EditText password2;
+    private Spinner spin_registro;
+    private List<String> monedas = new ArrayList<String>();
 
 
     @Override

@@ -9,23 +9,28 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class Login extends AppCompatActivity {
+
     TextView btn_registro;
     Button btn_ingresar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
-        //hola
         setContentView(R.layout.activity_login);
-        btn_registro=(TextView)findViewById(R.id.btn_registro);
+
+        //Asignacion de variables del layout
+        btn_registro = (TextView) findViewById(R.id.btn_registro);
+        btn_ingresar = (Button) findViewById(R.id.btn_ingresar);
+
+        //Listener de los botones
         btn_registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Login.this,Registro.class);
+                Intent i = new Intent(Login.this, Registro.class);
                 startActivity(i);
             }
         });
-        btn_ingresar=(Button)findViewById(R.id.btn_ingresar);
         btn_ingresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

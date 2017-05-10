@@ -20,12 +20,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class registros extends AppCompatActivity {
+
     //Menu, Declaracion de variables
     private DrawerLayout drawerLayout;
     final List<MenuItem> items = new ArrayList<>();
     private Menu menu;
     private ImageView btnMenu;
     private NavigationView nav;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,9 +74,11 @@ public class registros extends AppCompatActivity {
                 return false;
             }
         });
-        //Bloque de codigo que da funcionalidad al boton de editar del header del menu
+
+        //Asignacion del header menu en una bariable
         View headerview = nav.getHeaderView(0);
 
+        //Toma la imagen de ususario, la redondea y la coloca nuevamente
         ImageView imgUsuario = (ImageView)headerview.findViewById(R.id.img_Usuario);
         Drawable imgOriginal = imgUsuario.getDrawable(); //getResources().getDrawable(R.drawable.fondo3);
         Bitmap bitOriginal = ((BitmapDrawable) imgOriginal).getBitmap();
@@ -82,6 +86,7 @@ public class registros extends AppCompatActivity {
         rounderDrawable.setCornerRadius(bitOriginal.getHeight());
         imgUsuario.setImageDrawable(rounderDrawable);
 
+        //Funcionalidad del boton de menu
         btnMenu = (ImageView)findViewById(R.id.Btnmenu);
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
