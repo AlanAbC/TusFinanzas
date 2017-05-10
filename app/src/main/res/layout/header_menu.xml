@@ -18,7 +18,8 @@
         android:layout_marginBottom="30dp"
         android:background="@drawable/img_redonda"
         android:id="@+id/img_Usuario"
-        android:padding="15dp"
+        android:src="@drawable/user"
+        android:padding="13dp"
         />
 
     <TextView

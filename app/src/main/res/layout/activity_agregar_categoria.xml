@@ -57,7 +57,7 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="25dp"
-                    android:textColorHint="#FFFFFF"
+                    android:textColorHint="#949494"
                     android:layout_height="wrap_content">
 
                     <EditText
@@ -65,8 +65,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Nombre"
-                        android:textColor="#fff"
-                        android:textColorHint="#ffffff"
+                        android:textColor="#949494"
+                        android:textColorHint="#949494"
                         android:textSize="20dp"/>
 
                 </android.support.design.widget.TextInputLayout>
@@ -76,7 +76,7 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="15dp"
-                    android:textColorHint="#FFFFFF"
+                    android:textColorHint="#949494"
                     android:layout_below="@id/input_layout_nombreCat"
                     android:layout_height="wrap_content">
 
@@ -84,9 +84,9 @@
                         android:id="@+id/input_descripcionCat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Nombre"
-                        android:textColor="#fff"
-                        android:textColorHint="#ffffff"
+                        android:hint="Descripcion"
+                        android:textColor="#949494"
+                        android:textColorHint="#949494"
                         android:textSize="20dp"/>
 
                 </android.support.design.widget.TextInputLayout>
