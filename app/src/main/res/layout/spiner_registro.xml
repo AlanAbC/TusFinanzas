@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="30dp">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="#4E9455"
-        android:textColor="#ffffff"
-        android:id="@+id/txt_colorFondo"/>
-
-</LinearLayout>
+    android:layout_height="wrap_content"
+    android:gravity="left"
+    android:textColor="#a1a1a1"
+    android:padding="15dp"
+    android:background="#4E9455"
+    android:textSize="19sp"/>
