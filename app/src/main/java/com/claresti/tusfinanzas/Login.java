@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class Login extends AppCompatActivity {
 
-    TextView btn_registro;
-    Button btn_ingresar;
+    //Declaracion variables layout
+    private EditText input_email;
+    private EditText input_password;
+    private TextView btn_registro;
+    private Button btn_ingresar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +24,8 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         //Asignacion de variables del layout
+        input_email = (EditText)findViewById(R.id.input_user);
+        input_password = (EditText)findViewById(R.id.input_password);
         btn_registro = (TextView) findViewById(R.id.btn_registro);
         btn_ingresar = (Button) findViewById(R.id.btn_ingresar);
 
