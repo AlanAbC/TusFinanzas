@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#4e9455"
+    android:id="@+id/l_ventana"
     tools:context="com.claresti.tusfinanzas.Login">
 
     <RelativeLayout
@@ -85,5 +86,13 @@
             android:layout_centerHorizontal="true"/>
 
     </RelativeLayout>
+
+    <ProgressBar
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:id="@+id/progress"/>
 
 </RelativeLayout>

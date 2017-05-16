@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.claresti.tusfinanzas">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,7 +23,7 @@
         <activity android:name=".presupuestos" />
         <activity android:name=".acerca" />
         <activity android:name=".agregarGasto" />
-        <activity android:name=".registros"></activity>
+        <activity android:name=".registros"/>
     </application>
 
 </manifest>
