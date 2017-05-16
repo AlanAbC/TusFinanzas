@@ -74,6 +74,11 @@ public class Login extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
+    /**
+     * funcion que se encarga de obtener los valores de los EditText y compureva
+     * que no esten vacios, en caso de que esten vacios regresa mensaje con
+     * cual campo esta vacio y en caso contrario ejecuta la funcion de login
+     */
     private void validarLogin() {
         String mail = input_email.getText().toString();
         String pass = input_password.getText().toString();
@@ -86,6 +91,14 @@ public class Login extends AppCompatActivity {
         }
     }
 
+    /**
+     * funcion que solicita a la api los datos del login y los valida si existe
+     * el usuario en caso de existir guarda la informacion en la base de
+     * datos local y en caso contrario marca mensaje de que no existe el
+     * usuario o contraseña incorrecta
+     * @param mail correo del usuario
+     * @param pass contraseña del usuario
+     */
     private void login(String mail, String pass) {
         progreso.setVisibility(View.VISIBLE);
         Log.i("JSON", "Si entro");
@@ -95,7 +108,7 @@ public class Login extends AppCompatActivity {
                 addToRequestQueue(
                         request = new JsonObjectRequest(
                                 Request.Method.GET,
-                                "http://127.0.0.1/TusFinanzas/usuarios.php?a=login&mail=" + mail + "&pas=" + pass,
+                                urls.getUrlLogin() + "login&mail=" + mail + "&pas=" + pass,
                                 new Response.Listener<JSONObject>() {
                                     @Override
                                     public void onResponse(JSONObject response) {
@@ -109,6 +122,7 @@ public class Login extends AppCompatActivity {
                                                         Log.i("JSON", arrayUsuario.length + "");
                                                         for (Usuario usuaro : arrayUsuario) {
                                                             Log.i("JSON - for", "Si entra");
+                                                            //crear base de datos local i guardar la informacion del objeto
                                                             progreso.setVisibility(View.GONE);
                                                             msg("Login correcto " + usuaro.getUsu_mail());
                                                         }
@@ -157,6 +171,9 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    /**
+     * Funcion que anima los editText
+     */
     private void animar() {
 
     }
