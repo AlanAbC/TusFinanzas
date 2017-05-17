@@ -82,6 +82,9 @@ public class agregar_categoria extends AppCompatActivity {
                     Intent i = new Intent(agregar_categoria.this, registros.class);
                     startActivity(i);
                 }else if(pos == 4){
+                    Intent i = new Intent(agregar_categoria.this, Configuracion.class);
+                    startActivity(i);
+                }else if(pos == 5){
                     Intent i = new Intent(agregar_categoria.this, acerca.class);
                     startActivity(i);
                 }

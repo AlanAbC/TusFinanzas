@@ -22,6 +22,10 @@
             android:icon="@drawable/registro"/>
         <item
             android:id="@+id/opcion5"
+            android:title="Configuración"
+            android:icon="@drawable/settings"/>
+        <item
+            android:id="@+id/opcion6"
             android:title="Acerca de"
             android:icon="@drawable/acerca"/>
 
