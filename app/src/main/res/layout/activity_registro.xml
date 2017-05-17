@@ -156,6 +156,14 @@
                 android:layout_marginRight="30dp"
                 android:layout_marginLeft="30dp"/>
 
+            <ProgressBar
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/progress"
+                android:visibility="gone"/>
+
         </RelativeLayout>
 
     </ScrollView>

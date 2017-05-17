@@ -14,17 +14,33 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -40,6 +56,7 @@ public class agregarGasto extends AppCompatActivity {
     private ImageView btn_mas;
     private ImageView btn_menos;
     private Button btn_registrar;
+    private ProgressBar progreso;
 
     //Menu, Declaracion de variables
     private DrawerLayout drawerLayout;
@@ -48,8 +65,17 @@ public class agregarGasto extends AppCompatActivity {
     private ImageView btnMenu;
     private NavigationView nav;
 
+    //declaracion de array de categorias de la peticion
+    private ArrayList<Categoria> categorias;
+
     //Declaracion de variable de base de datos
     private BD db;
+
+    //Declaracion de variables de urls+
+    private Urls urls;
+
+    //Declaracion para variable seleccionada del spinner
+    private int spinnerSelect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +91,16 @@ public class agregarGasto extends AppCompatActivity {
         btn_mas = (ImageView)findViewById(R.id.img_mas);
         btn_menos = (ImageView)findViewById(R.id.img_menos);
         btn_registrar = (Button)findViewById(R.id.btn_registrar);
+        progreso = (ProgressBar)findViewById(R.id.progress);
 
         //Asignacion de variable de la BD
         db = new BD(getApplicationContext());
+
+        //Asignacion la variable urls
+        urls = new Urls();
+
+        //asignacion de variable de array categorias
+        categorias = new ArrayList<Categoria>();
 
         //Menu, Inicia las variables del menu y llama la funcion encargada de su manipulacion
         drawerLayout = (DrawerLayout) findViewById(R.id.dLayout);
@@ -75,8 +108,141 @@ public class agregarGasto extends AppCompatActivity {
         menu = nav.getMenu();
         menuNav();
 
+        //llamada a los listeners
+        lsiteners();
+
+        //llamada a cargar spinner
+        cargarSpinner();
+
         //Ocultar teclado al iniciar la activity
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    private void llenarSpinner() {
+        spin_categoria.setAdapter(new AdapterSpinnerCategoria(getApplicationContext(), categorias));
+        spin_categoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spinnerSelect = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    /**
+     * funcion encargada de realizar la peticion al servidor y obtener en un array las categorias
+     * @return un array de las categorias obtenidas en la peticion
+     */
+    private void cargarSpinner() {
+        progreso.setVisibility(View.VISIBLE);
+        Log.i("JSON", "Si entro");
+        final Gson gson = new Gson();
+        JsonObjectRequest request;
+        VolleySingleton.getInstance(agregarGasto.this).
+                addToRequestQueue(
+                        request = new JsonObjectRequest(
+                                Request.Method.GET,
+                                urls.getUrlCategorias() + "todo",
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        try {
+                                            String res = response.getString("res");
+                                            switch(res){
+                                                case "1":
+                                                    Log.i("peticion", "caso 1");
+                                                    JSONArray jArrayMarcadores = response.getJSONArray("categorias");
+                                                    Categoria[] arrayCategoria = gson.fromJson(jArrayMarcadores.toString(), Categoria[].class);
+                                                    Log.i("peticion", "tamaño: " + arrayCategoria.length);
+                                                    for(int i = 0; i < arrayCategoria.length; i++){
+                                                        categorias.add(arrayCategoria[i]);
+                                                    }
+                                                    llenarSpinner();
+                                                    progreso.setVisibility(View.GONE);
+                                                    break;
+                                                case "0":
+                                                    Log.i("peticion", "caso 0");
+                                                    arrayCategoria = null;
+                                                    //Regresar mensaje de que no hay registros
+                                                    progreso.setVisibility(View.GONE);
+                                                    break;
+                                                default:
+                                                    Log.i("peticion", "caso default");
+                                                    arrayCategoria = null;
+                                                    progreso.setVisibility(View.GONE);
+                                                    //msg("Ocurrio un problema al conectarse con el sertvidor");
+                                                    break;
+                                            }
+                                        }catch(JSONException json){
+                                            Log.e("JSON", json.toString());
+                                        }
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+
+                                    }
+                                }
+                        )
+                );
+        request.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
+    }
+
+    /**
+     * funcion encargada de asignar los listener del activity
+     */
+    private void lsiteners() {
+        //accion click al boton más
+        btn_mas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(input_monto.getText().toString().equals("")){
+                    input_monto.setText("100" + "" + "");
+                }else{
+                    double can = Double.parseDouble(input_monto.getText().toString()) + 100;
+                    input_monto.setText(can + "" + "");
+                }
+            }
+        });
+        //accion click boton menos
+        btn_menos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(input_monto.getText().toString().equals("")){
+                    input_monto.setText("-100" + "" + "");
+                }else{
+                    double can = Double.parseDouble(input_monto.getText().toString()) - 100;
+                    input_monto.setText(can + "" + "");
+                }
+            }
+        });
+        ////accion click boton registrar
+        btn_registrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(agregarGasto.this, "seleccion: " + spinnerSelect, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /**
