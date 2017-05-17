@@ -6,11 +6,13 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +20,18 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +42,8 @@ public class agregar_categoria extends AppCompatActivity {
     private EditText input_nombreCat;
     private EditText input_descripcionCat;
     private Button btn_registrar;
+    private RelativeLayout ventana;
+    private ProgressBar progreso;
 
     //Menu, Declaracion de variables
     private DrawerLayout drawerLayout;
@@ -36,8 +52,9 @@ public class agregar_categoria extends AppCompatActivity {
     private ImageView btnMenu;
     private NavigationView nav;
 
-    //Declaracion de variable de base de datos
+    //Declaracion de variable de base de datos y Urls
     private BD db;
+    private Urls urls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +63,16 @@ public class agregar_categoria extends AppCompatActivity {
         setContentView(R.layout.activity_agregar_categoria);
 
         //Asignacion variables de layout
+        ventana = (RelativeLayout)findViewById(R.id.l_ventana);
+        progreso = (ProgressBar)findViewById(R.id.progress);
         input_nombreCat = (EditText)findViewById(R.id.input_nombreCat);
         input_descripcionCat = (EditText)findViewById(R.id.input_descripcionCat);
         btn_registrar = (Button)findViewById(R.id.btn_registrar);
 
-        //Asignacion de variable de la BD
+
+        //Asignacion de variable de la BD y Urls
         db = new BD(getApplicationContext());
+        urls = new Urls();
 
         //Menu, Inicia las variables del menu y llama la funcion encargada de su manipulacion
         drawerLayout = (DrawerLayout) findViewById(R.id.dLayout);
@@ -59,8 +80,97 @@ public class agregar_categoria extends AppCompatActivity {
         menu = nav.getMenu();
         menuNav();
 
+        //Asignacion listeners del boton
+        listenerBoton();
+
         //Ocultar teclado al iniciar la activity
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    /**
+     * funcion que valida los ediText no esten vacios y en caso de que no lo esten ejecuta la funcion
+     * de insertarCategoria
+     */
+    private void listenerBoton() {
+        btn_registrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(input_nombreCat.getText().toString().equals("")){
+                    msg("Ingrese un nombre de categoria");
+                }else if(input_descripcionCat.getText().toString().equals("")){
+                    msg("Ingrese una descripcion de la categoria");
+                }else{
+                    ingresarCategoria();
+                }
+            }
+        });
+    }
+
+    /**
+     * funcion que se encarga de insertar la categoria a la base de datos
+     */
+    private void ingresarCategoria() {
+        progreso.setVisibility(View.VISIBLE);
+        Log.i("JSON", "Si entro");
+        final Gson gson = new Gson();
+        JsonObjectRequest request;
+        VolleySingleton.getInstance(agregar_categoria.this).
+                addToRequestQueue(
+                        request = new JsonObjectRequest(
+                                Request.Method.GET,
+                                urls.getUrlCategorias() + "insertar&nom=" + input_nombreCat.getText().toString() +
+                                        "&des=" + input_descripcionCat.getText().toString(),
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        try {
+                                            String res = response.getString("res");
+                                            switch(res){
+                                                case "1":
+                                                    input_nombreCat.setText("");
+                                                    input_descripcionCat.setText("");
+                                                    msg("Se ingreso correctamente la categoria");
+                                                    progreso.setVisibility(View.GONE);
+                                                    break;
+                                                case "0":
+                                                    msg("Ocurrio un problema al conectarse con el sertvidor");
+                                                    progreso.setVisibility(View.GONE);
+                                                    break;
+                                                default:
+
+                                                    progreso.setVisibility(View.GONE);
+                                                    msg("Ocurrio un problema al conectarse con el sertvidor");
+                                                    break;
+                                            }
+                                        }catch(JSONException json){
+                                            Log.e("JSON", json.toString());
+                                        }
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+
+                                    }
+                                }
+                        )
+                );
+        request.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
     }
 
     /**
@@ -127,5 +237,18 @@ public class agregar_categoria extends AppCompatActivity {
                 drawerLayout.openDrawer(nav);
             }
         });
+    }
+
+    /**
+     * Funcion para crear un mensaje en pantalla
+     * @param msg
+     */
+    public void msg(String msg){
+        Snackbar.make(ventana, msg, Snackbar.LENGTH_SHORT).setAction("Aceptar", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        }).show();
     }
 }

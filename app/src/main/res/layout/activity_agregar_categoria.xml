@@ -6,6 +6,7 @@
     android:id="@+id/dLayout"
     android:theme="@style/ThemePrincipal"
     android:layout_width="match_parent">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -103,6 +104,14 @@
                     android:layout_marginTop="25dp"
                     android:layout_marginBottom="20dp"/>
             </RelativeLayout>
+
+            <ProgressBar
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"
+                android:id="@+id/progress"/>
 
         </RelativeLayout>
     </ScrollView>
