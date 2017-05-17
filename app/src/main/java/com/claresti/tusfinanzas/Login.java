@@ -1,6 +1,7 @@
 package com.claresti.tusfinanzas;
 
 import android.content.Intent;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,6 +39,9 @@ public class Login extends AppCompatActivity {
     //Variables de urls
     private Urls urls;
     private static final String TAG = "Json";
+    //Declaracion de variables para el control de bottom sheet
+    private Button btnConBottomSheet;
+    private LinearLayout bottomSheet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +77,20 @@ public class Login extends AppCompatActivity {
 
         //Ocultar teclado al iniciar la activity
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        //Llamada de las variables para el control de bottomsheet
+        bottomSheet = (LinearLayout)findViewById(R.id.bottomSheet);
+        final BottomSheetBehavior bsb = BottomSheetBehavior.from(bottomSheet);
+        bsb.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        //Control para esconder bottomsheet
+        btnConBottomSheet=(Button)findViewById(R.id.btnConBottomSheet);
+        btnConBottomSheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                bsb.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        });
     }
 
     /**
@@ -134,7 +153,7 @@ public class Login extends AppCompatActivity {
                                                 case "0":
                                                     //Regresar mensaje de que no hay registros
                                                     progreso.setVisibility(View.GONE);
-                                                    msg("Correo o contraseña in correctos");
+                                                    mostrarBottom();
                                                     animar();
                                                     break;
                                                 default:
@@ -191,6 +210,11 @@ public class Login extends AppCompatActivity {
 
             }
         }).show();
+    }
+    private void mostrarBottom(){
+        final BottomSheetBehavior bsb = BottomSheetBehavior.from(bottomSheet);
+        //funcion para expandir bottomsheet en cuanto inicia la app
+        bsb.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
 }
