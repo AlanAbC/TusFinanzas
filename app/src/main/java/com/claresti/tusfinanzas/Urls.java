@@ -9,10 +9,10 @@ public class Urls {
     private String urlPresupuestos;
 
     public Urls() {
-        this.urlLogin = "http://localhost/TusFinanzas/usuarios.php?a=";
-        this.urlCategorias = "http://localhost/TusFinanzas/categorias.php?a=";
-        this.urlGastos = "http://localhost/TusFinanzas/gastos.php?a=";
-        this.urlPresupuestos = "http://localhost/TusFinanzas/presupuestos.php?a=";
+        this.urlLogin = "http://tusfinanzas.claresti.com/usuarios.php?a=";
+        this.urlCategorias = "http://tusfinanzas.claresti.com/categorias.php?a=";
+        this.urlGastos = "http://tusfinanzas.claresti.com/gastos.php?a=";
+        this.urlPresupuestos = "http://tusfinanzas.claresti.com/presupuestos.php?a=";
     }
 
     public String getUrlLogin() {

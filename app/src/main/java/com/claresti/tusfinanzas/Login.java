@@ -124,7 +124,9 @@ public class Login extends AppCompatActivity {
                                                             Log.i("JSON - for", "Si entra");
                                                             //crear base de datos local i guardar la informacion del objeto
                                                             progreso.setVisibility(View.GONE);
-                                                            msg("Login correcto " + usuaro.getUsu_mail());
+                                                            Intent i = new Intent(Login.this, agregarGasto.class);
+                                                            startActivity(i);
+                                                            finish();
                                                         }
                                                     }
                                                     progreso.setVisibility(View.GONE);
@@ -183,7 +185,7 @@ public class Login extends AppCompatActivity {
      * @param msg String que contiene el mensaje
      */
     private void msg(String msg){
-        Snackbar.make(ventana, msg, Snackbar.LENGTH_SHORT).setAction("Aceptar", new View.OnClickListener() {
+        Snackbar.make(ventana, msg, Snackbar.LENGTH_LONG).setAction("Aceptar", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
