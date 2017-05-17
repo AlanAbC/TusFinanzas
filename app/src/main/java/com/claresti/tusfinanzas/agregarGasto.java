@@ -98,6 +98,9 @@ public class agregarGasto extends AppCompatActivity {
                     Intent i = new Intent(agregarGasto.this, registros.class);
                     startActivity(i);
                 }else if(pos == 4){
+                    Intent i = new Intent(agregarGasto.this, Configuracion.class);
+                    startActivity(i);
+                }else if(pos == 5){
                     Intent i = new Intent(agregarGasto.this, acerca.class);
                     startActivity(i);
                 }

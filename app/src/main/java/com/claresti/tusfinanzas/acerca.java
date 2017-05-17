@@ -67,7 +67,9 @@ public class acerca extends AppCompatActivity {
                     Intent i = new Intent(acerca.this, registros.class);
                     startActivity(i);
                 }else if(pos == 4){
-
+                    Intent i = new Intent(acerca.this, Configuracion.class);
+                    startActivity(i);
+                }else if(pos == 5){
                 }
                 drawerLayout.closeDrawer(nav);
                 item.setChecked(false);

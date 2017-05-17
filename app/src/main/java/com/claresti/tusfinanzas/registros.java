@@ -73,6 +73,9 @@ public class registros extends AppCompatActivity {
                 }else if(pos == 3) {
 
                 }else if(pos == 4){
+                    Intent i = new Intent(registros.this, Configuracion.class);
+                    startActivity(i);
+                }else if(pos == 5){
                     Intent i = new Intent(registros.this, acerca.class);
                     startActivity(i);
                 }
