@@ -32,6 +32,9 @@ public class presupuestos extends AppCompatActivity {
     private ImageView btnMenu;
     private NavigationView nav;
 
+    //Declaracion de variable de base de datos
+    private BD db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +43,9 @@ public class presupuestos extends AppCompatActivity {
 
         //Declaracion de variables layout
         lis_categoria = (ListView)findViewById(R.id.lis_categoria);
+
+        //Asignacion de variable de la BD
+        db = new BD(getApplicationContext());
 
         //Menu, Inicia las variables del menu y llama la funcion encargada de su manipulacion
         drawerLayout = (DrawerLayout) findViewById(R.id.dLayout);
@@ -78,6 +84,14 @@ public class presupuestos extends AppCompatActivity {
                 }else if(pos == 5){
                     Intent i = new Intent(presupuestos.this, acerca.class);
                     startActivity(i);
+                }else if(pos == 6){
+                    Usuario act = db.selectUsuario();
+                    Usuario usu = new Usuario(act.getUsu_id(), "0", "0", "0", "0", "0", "0");
+                    if(db.updateUsuario(usu).equals("1")){
+                        Intent i = new Intent(presupuestos.this, Login.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(i);
+                    }
                 }
                 drawerLayout.closeDrawer(nav);
                 item.setChecked(false);

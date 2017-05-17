@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -42,6 +43,8 @@ public class Login extends AppCompatActivity {
     //Declaracion de variables para el control de bottom sheet
     private Button btnConBottomSheet;
     private LinearLayout bottomSheet;
+    //Declaracion de variable de base de datos
+    private BD db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +60,11 @@ public class Login extends AppCompatActivity {
         ventana = (RelativeLayout)findViewById(R.id.l_ventana);
         progreso = (ProgressBar)findViewById(R.id.progress);
 
-        //Asignacion de variables
+        //Asignacion de variable de los URLS
         urls = new Urls();
+
+        //Asignacion de variable de la BD
+        db = new BD(getApplicationContext());
 
         //Listener de los botones
         btn_registro.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +80,14 @@ public class Login extends AppCompatActivity {
                 validarLogin();
             }
         });
+
+        //validacion de que no haya un inicio de sesion
+        Usuario valusu = db.selectUsuario();
+        if(!valusu.getUsu_nombre().equals("0") && !valusu.getUsu_password().equals("0")){
+            Intent i = new Intent(Login.this, agregarGasto.class);
+            startActivity(i);
+            finish();
+        }
 
         //Ocultar teclado al iniciar la activity
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -142,10 +156,18 @@ public class Login extends AppCompatActivity {
                                                         for (Usuario usuaro : arrayUsuario) {
                                                             Log.i("JSON - for", "Si entra");
                                                             //crear base de datos local i guardar la informacion del objeto
-                                                            progreso.setVisibility(View.GONE);
-                                                            Intent i = new Intent(Login.this, agregarGasto.class);
-                                                            startActivity(i);
-                                                            finish();
+                                                            if(db.updateUsuarioPrimera(usuaro).equals("1")){
+                                                                progreso.setVisibility(View.GONE);
+                                                                Intent i = new Intent(Login.this, agregarGasto.class);
+                                                                startActivity(i);
+                                                                finish();
+                                                            }else {
+                                                                progreso.setVisibility(View.GONE);
+                                                                Toast.makeText(getApplicationContext(), "No se pudo guardar la sesion", Toast.LENGTH_SHORT).show();
+                                                                Intent i = new Intent(Login.this, agregarGasto.class);
+                                                                startActivity(i);
+                                                                finish();
+                                                            }
                                                         }
                                                     }
                                                     progreso.setVisibility(View.GONE);

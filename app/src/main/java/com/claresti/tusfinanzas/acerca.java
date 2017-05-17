@@ -27,12 +27,17 @@ public class acerca extends AppCompatActivity {
     private Menu menu;
     private ImageView btnMenu;
     private NavigationView nav;
+    //Declaracion de variable de base de datos
+    private BD db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_acerca);
+
+        //Asignacion de variable de la BD
+        db = new BD(getApplicationContext());
 
         //Menu, Inicia las variables del menu y llama la funcion encargada de su manipulacion
         drawerLayout = (DrawerLayout) findViewById(R.id.dLayout);
@@ -48,7 +53,7 @@ public class acerca extends AppCompatActivity {
         for(int i = 0; i < menu.size(); i++){
             items.add(menu.getItem(i));
         }
-        items.get(4).setChecked(true);
+        items.get(5).setChecked(true);
         nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -70,7 +75,17 @@ public class acerca extends AppCompatActivity {
                     Intent i = new Intent(acerca.this, Configuracion.class);
                     startActivity(i);
                 }else if(pos == 5){
+
+                }else if(pos == 6){
+                    Usuario act = db.selectUsuario();
+                    Usuario usu = new Usuario(act.getUsu_id(), "0", "0", "0", "0", "0", "0");
+                    if(db.updateUsuario(usu).equals("1")){
+                        Intent i = new Intent(acerca.this, Login.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(i);
+                    }
                 }
+
                 drawerLayout.closeDrawer(nav);
                 item.setChecked(false);
                 return false;

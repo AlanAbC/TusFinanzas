@@ -36,6 +36,9 @@ public class agregar_categoria extends AppCompatActivity {
     private ImageView btnMenu;
     private NavigationView nav;
 
+    //Declaracion de variable de base de datos
+    private BD db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +49,9 @@ public class agregar_categoria extends AppCompatActivity {
         input_nombreCat = (EditText)findViewById(R.id.input_nombreCat);
         input_descripcionCat = (EditText)findViewById(R.id.input_descripcionCat);
         btn_registrar = (Button)findViewById(R.id.btn_registrar);
+
+        //Asignacion de variable de la BD
+        db = new BD(getApplicationContext());
 
         //Menu, Inicia las variables del menu y llama la funcion encargada de su manipulacion
         drawerLayout = (DrawerLayout) findViewById(R.id.dLayout);
@@ -87,6 +93,14 @@ public class agregar_categoria extends AppCompatActivity {
                 }else if(pos == 5){
                     Intent i = new Intent(agregar_categoria.this, acerca.class);
                     startActivity(i);
+                }else if(pos == 6){
+                    Usuario act = db.selectUsuario();
+                    Usuario usu = new Usuario(act.getUsu_id(), "0", "0", "0", "0", "0", "0");
+                    if(db.updateUsuario(usu).equals("1")){
+                        Intent i = new Intent(agregar_categoria.this, Login.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(i);
+                    }
                 }
                 drawerLayout.closeDrawer(nav);
                 item.setChecked(false);

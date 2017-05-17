@@ -23,6 +23,7 @@
         <activity android:name=".presupuestos" />
         <activity android:name=".acerca" />
         <activity android:name=".agregarGasto" />
+        <activity android:name=".Configuracion"/>
         <activity android:name=".registros"/>
     </application>
 

@@ -28,6 +28,10 @@
             android:id="@+id/opcion6"
             android:title="Acerca de"
             android:icon="@drawable/acerca"/>
+        <item
+            android:id="@+id/opcion7"
+            android:title="Cerrar sesion"
+            android:icon="@drawable/logout"/>
 
     </group>
 </menu>
