@@ -54,6 +54,21 @@
                     android:id="@+id/lis_categoria"/>
 
             </RelativeLayout>
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/agregar"
+                app:backgroundTint="#216C2A"
+                android:src="@drawable/agregar"
+                app:fabSize="normal"
+                android:onClick="actualizar"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="bottom|right|end"
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="15dp"
+                app:elevation="2dp"/>
 
         </RelativeLayout>
 
