@@ -33,7 +33,8 @@
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/img_mas"
-        android:hint="%"
+        android:hint="$"
+        android:inputType="numberSigned"
         android:id="@+id/edit_porcentaje"/>
 
     <ImageView

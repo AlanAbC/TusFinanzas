@@ -11,11 +11,24 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +44,13 @@ public class presupuestos extends AppCompatActivity {
     private Menu menu;
     private ImageView btnMenu;
     private NavigationView nav;
+    private ProgressBar progreso;
+
+    //Variable de urls
+    private Urls urls;
+
+    //Array list categorias
+    private ArrayList<Categoria> categorias;
 
     //Declaracion de variable de base de datos
     private BD db;
@@ -43,15 +63,106 @@ public class presupuestos extends AppCompatActivity {
 
         //Declaracion de variables layout
         lis_categoria = (ListView)findViewById(R.id.lis_categoria);
+        progreso = (ProgressBar)findViewById(R.id.progress);
 
         //Asignacion de variable de la BD
         db = new BD(getApplicationContext());
+
+        //Asignacion de urls
+        urls = new Urls();
+
+        //asignacion de variable de array categorias
+        categorias = new ArrayList<Categoria>();
 
         //Menu, Inicia las variables del menu y llama la funcion encargada de su manipulacion
         drawerLayout = (DrawerLayout) findViewById(R.id.dLayout);
         nav = (NavigationView)findViewById(R.id.navigation);
         menu = nav.getMenu();
         menuNav();
+
+        //cargar Categorias
+        cargarCategorias();
+    }
+
+    /**
+     * funcion encargada de llenar el listview cobn las categorias
+     */
+    private void cargarCategorias() {
+        progreso.setVisibility(View.VISIBLE);
+        Log.i("JSON", "Si entro");
+        final Gson gson = new Gson();
+        JsonObjectRequest request;
+        VolleySingleton.getInstance(presupuestos.this).
+                addToRequestQueue(
+                        request = new JsonObjectRequest(
+                                Request.Method.GET,
+                                urls.getUrlCategorias() + "todo",
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        try {
+                                            String res = response.getString("res");
+                                            switch(res){
+                                                case "1":
+                                                    Log.i("peticion", "caso 1");
+                                                    JSONArray jArrayMarcadores = response.getJSONArray("categorias");
+                                                    Categoria[] arrayCategoria = gson.fromJson(jArrayMarcadores.toString(), Categoria[].class);
+                                                    Log.i("peticion", "tamaño: " + arrayCategoria.length);
+                                                    for(int i = 0; i < arrayCategoria.length; i++){
+                                                        categorias.add(arrayCategoria[i]);
+                                                    }
+                                                    llenarListviewCategorias();
+                                                    progreso.setVisibility(View.GONE);
+                                                    break;
+                                                case "0":
+                                                    Log.i("peticion", "caso 0");
+                                                    arrayCategoria = null;
+                                                    //Regresar mensaje de que no hay registros
+                                                    progreso.setVisibility(View.GONE);
+                                                    break;
+                                                default:
+                                                    Log.i("peticion", "caso default");
+                                                    arrayCategoria = null;
+                                                    progreso.setVisibility(View.GONE);
+                                                    //msg("Ocurrio un problema al conectarse con el sertvidor");
+                                                    break;
+                                            }
+                                        }catch(JSONException json){
+                                            Log.e("JSON", json.toString());
+                                        }
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+
+                                    }
+                                }
+                        )
+                );
+        request.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
+    }
+
+    /**
+     * funcion encargada de rellenar el listview con los lementos del RES
+     */
+    private void llenarListviewCategorias() {
+        lis_categoria.setAdapter(new AdapterListViewCategorias(getApplicationContext(), categorias));
     }
 
     /**
