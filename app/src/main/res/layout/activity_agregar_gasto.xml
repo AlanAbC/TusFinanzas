@@ -125,6 +125,7 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <Spinner
+                    android:spinnerMode="dialog"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_marginTop="15dp"
@@ -132,6 +133,28 @@
                     android:layout_marginRight="50dp"
                     android:id="@+id/spin_categoria"
                     android:layout_below="@id/input_layout_concepto"/>
+                <TextView
+                    android:text="hola"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="90dp"
+                    android:layout_height="50dp"
+                    android:gravity="left"
+                    android:textColor="#949494"
+                    android:padding="15dp"
+                    android:background="#FAFAFA"
+                    android:id="@+id/txt_categoria"
+                    android:textSize="15sp"
+                    android:layout_below="@id/input_layout_concepto"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#949494"
+                    android:layout_marginTop="-2dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_below="@id/spin_categoria"/>
 
                 <DatePicker
                     android:layout_width="match_parent"

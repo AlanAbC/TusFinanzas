@@ -244,7 +244,7 @@ public class agregar_categoria extends AppCompatActivity {
      * @param msg
      */
     public void msg(String msg){
-        Snackbar.make(ventana, msg, Snackbar.LENGTH_SHORT).setAction("Aceptar", new View.OnClickListener() {
+        Snackbar.make(ventana, msg, Snackbar.LENGTH_LONG).setAction("Aceptar", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
