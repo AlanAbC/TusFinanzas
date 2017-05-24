@@ -139,7 +139,7 @@ public class Registro extends AppCompatActivity {
                                                 default:
 
                                                     progreso.setVisibility(View.GONE);
-                                                    msg("Ocurrio un problema al conectarse con el sertvidor");
+                                                    msg("El correo ya esta registrado, prueba con otro correo");
                                                     break;
                                             }
                                         }catch(JSONException json){
