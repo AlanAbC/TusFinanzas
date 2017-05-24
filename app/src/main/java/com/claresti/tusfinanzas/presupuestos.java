@@ -12,12 +12,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -55,6 +59,9 @@ public class presupuestos extends AppCompatActivity {
     //Declaracion de variable de base de datos
     private BD db;
 
+    //Variable de la vista del layout para el toast personalizado
+    private View viewLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +89,10 @@ public class presupuestos extends AppCompatActivity {
 
         //cargar Categorias
         cargarCategorias();
+
+        //Toast personalizado inflador del layout
+        LayoutInflater layoutInflater = getLayoutInflater();
+        viewLayout = layoutInflater.inflate(R.layout.toas_correcto, (ViewGroup)findViewById(R.id.lay_toast));
     }
 
     /**
@@ -229,5 +240,19 @@ public class presupuestos extends AppCompatActivity {
                 drawerLayout.openDrawer(nav);
             }
         });
+    }
+
+    /**
+     * funcion encargada de guardar los parametros del presupuesto
+     * @param view elemento del layout que es un float button
+     */
+    public void actualizar(View view){
+        Toast toast = Toast.makeText(getApplicationContext(), "Toast:Gravity.TOP", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.setView(viewLayout);
+        toast.show();
+        Intent i = new Intent(presupuestos.this, agregarGasto.class);
+        startActivity(i);
+        finish();
     }
 }

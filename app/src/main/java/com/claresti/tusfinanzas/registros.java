@@ -17,6 +17,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +57,29 @@ public class registros extends AppCompatActivity {
         nav = (NavigationView)findViewById(R.id.navigation);
         menu = nav.getMenu();
         menuNav();
+
+        //creacion de la grafica
+        BarChart barChart = (BarChart) findViewById(R.id.chart);
+
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        entries.add(new BarEntry(500f, 0));
+        entries.add(new BarEntry(800f, 1));
+        entries.add(new BarEntry(100f, 2));
+        entries.add(new BarEntry(100f, 3));
+
+        BarDataSet dataset = new BarDataSet(entries, "Dinero gastado");
+
+        ArrayList<String> labels = new ArrayList<String>();
+        labels.add("Alimentos");
+        labels.add("Transporte");
+        labels.add("Alcohol");
+        labels.add("Alcohol");
+
+
+        BarData data = new BarData(labels, dataset);
+        // dataset.setColors(ColorTemplate.COLORFUL_COLORS); //
+        barChart.setData(data);
+        barChart.animateY(5000);
     }
 
     /**

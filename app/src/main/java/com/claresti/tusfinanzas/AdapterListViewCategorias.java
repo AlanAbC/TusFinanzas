@@ -55,6 +55,7 @@ public class AdapterListViewCategorias extends BaseAdapter {
         final ImageView btn_menos = (ImageView)convertView.findViewById(R.id.img_menos);
         final EditText edit_porcentaje = (EditText)convertView.findViewById(R.id.edit_porcentaje);
         txt_categorias.setText(categorias.get(position).getCat_nombre());
+        edit_porcentaje.setText("100" + "" + "");
         btn_mas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
